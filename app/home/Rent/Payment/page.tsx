@@ -15,7 +15,7 @@ const page = () => {
   const  email = localStorage.getItem("username")
   const data =JSON.parse(localStorage.getItem("data") || '[]' )
   const bookList =JSON.parse(localStorage.getItem("books") || '[]' )
-  
+
   const [formData, setFormData] = useState({ 
     amount:0,
     ref:0,
@@ -141,7 +141,7 @@ const page = () => {
         <FormControl my={"10px"} isInvalid = {errors.amount != ''}>
            <FormLabel>Amount</FormLabel>
              <Input
-             type="text"
+             type="number"
              name="amount"
              value={formData.amount}
              onChange={handelUpload}
@@ -155,7 +155,7 @@ const page = () => {
       <FormControl my={"10px"}  isInvalid = {errors.ref != ''}>
          <FormLabel>Refrence number</FormLabel>
           <Input
-          type="text"
+          type="number"
           name="ref"
           value={formData.ref}
           onChange={handelUpload}
