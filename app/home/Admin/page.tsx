@@ -43,6 +43,8 @@ const page = ({searchParams} : {searchParams : {[key:string]:string | string[] |
   const toast = useToast()
   console.log(data)
 
+  const sale = JSON.parse(localStorage.getItem("sale") ?? '[]')
+  console.log(sale)
   let book = data.filter((data:any)=>data.email==val)
    
   console.log(book[0].book)
@@ -55,10 +57,8 @@ const page = ({searchParams} : {searchParams : {[key:string]:string | string[] |
 
   const page = searchParams['page'] ?? '1'
   const per_Page = searchParams['per_Page'] ?? '3' 
-
   const start = (Number(page) - 1) * Number(per_Page) 
   const end = start + Number(per_Page)
-
   const entries =book.slice (start, end)
 
    useEffect(() => {
@@ -78,6 +78,17 @@ const page = ({searchParams} : {searchParams : {[key:string]:string | string[] |
     }
     }
     }, []);
+
+
+    const profit = sale.reduce((acc:any,cur:any) => { 
+     return acc + Number(cur.amount)
+    },0)
+
+    console.log(profit)
+    const count = sale.length
+    console.log(count)
+
+    const percentage = profit
 
 
 const handelUpload = async(event:React.MouseEvent<HTMLButtonElement>) => {
@@ -250,23 +261,21 @@ const handelUpload = async(event:React.MouseEvent<HTMLButtonElement>) => {
               </Grid>
             </Box>
             </Box>
-           <Flex>
+            {
+              role=="Super Admin"?<Flex>
               <Box m={"20px"} p={"2%"} bg={"#fff"} w={"20vw"} borderRadius="25px">
                 <Text fontSize={['xl','xl',"3xl","3xl"]}>profit</Text>
-                <Text>20%</Text>
+                <Text>Rs: {profit}</Text>
               </Box>
 
               <Box m={"20px"} p={"2%"} bg={"#fff"} w={"20vw"} borderRadius="25px">
-                <Text fontSize={['xl','xl',"3xl","3xl"]}>Sells</Text>
-                <Text>40%</Text>
-              </Box>
-
-              <Box m={"20px"} p={"2%"} bg={"#fff"} w={"20vw"} borderRadius="25px">
-                <Text fontSize={['xl','xl',"3xl","3xl"]}>Loss</Text>
-                <Text>10%</Text>
-              </Box>
-           </Flex>
-           <Text m={"20px"} fontSize={"xl"}>Rented Books</Text>
+                <Text fontSize={['xl','xl',"3xl","3xl"]}>sell count</Text>
+                <Text>{count}</Text>
+              </Box>             
+           </Flex> : " "
+            }
+           
+           <Text m={"20px"} fontSize={"xl"}>Books</Text>
 
             <Box px={["20px","20px","80px","80px"]} py={"30px"} bg={"#dde5b6"}>        
             <TableContainer  bg={"#fff"}  w={["75%","75%","80%","100%"]} borderRadius={"25px"} p={"10px"}>

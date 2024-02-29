@@ -121,7 +121,7 @@ const page = () => {
               <Box color='white'  borderRadius={"25px"} p={3} bg='green'>
               <Flex >
                 <AiOutlineCheck  fontSize={"25px"}/>
-                <Text mx={"10px"}>Book is Rented</Text>
+                <Text mx={"10px"}>Book is added to account</Text>
                 </Flex>
               </Box> 
             ),
