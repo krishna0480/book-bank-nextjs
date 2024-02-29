@@ -54,7 +54,9 @@ const page = () => {
  
   const validate = () => {
     const tempErrors: typeof errors = JSON.parse(JSON.stringify(errors));
- 
+    
+    tempErrors.bookImage = '';
+
     if(book.bookName.trim() == '') {
       tempErrors.bookName = 'Book name is requried!';
     }  else {
@@ -66,6 +68,7 @@ const page = () => {
       console.log("empty")
     }  else {
       tempErrors.bookLink = '';
+      
     }
   
     const usersList: { bookName: string }[] = JSON.parse(localStorage.getItem('books') ?? '[]');
@@ -90,27 +93,15 @@ const page = () => {
          let startAt = Date.now(); 
          console.log(file.size)
          console.log("hii")
-       const res= await axios.post ("/api/upload",formData,{
-         onUploadProgress: (progressEvent: AxiosProgressEvent) => {
-           const { loaded, total } = progressEvent;
-           console.log(progressEvent);
-           const percentage = (loaded * 100) / total!;
-           console.log(`loaded ${loaded},total ${total}, percentage ${percentage}`)
-           setUpload(+percentage.toFixed(2));
-         },
-       }
-       )
-       const image = res.data.path.split("./public");
-
-  
+         const res = await axios.post ("/api/upload",formData)
+       const image = res.data.path.split("./public")
        return image[1];
   }
+
 
     const addBook =(event:ChangeEvent<HTMLInputElement> ) => {
     event.preventDefault()
     setBook(prev => ({ ...prev, [event.target.name]: event.target.value }));
-
-    
   }
 
 
@@ -118,15 +109,35 @@ const page = () => {
    const imgValidate = () => {
     const tempErrors: typeof errors = JSON.parse(JSON.stringify(errors));
 
+    if(book.bookName.trim() == '') {
+      tempErrors.bookName = 'Book name is requried!';
+    }  else {
+      tempErrors.bookName = '';
+    }
+
+    if(book.bookLink.trim() == '') {
+      tempErrors.bookLink = 'Link is requried!';
+      console.log("empty")
+    }  else {
+      tempErrors.bookLink = '';
+    }
+
     if(book.bookImage == '') {
       tempErrors.bookImage = 'Image is requried!';
       console.log(book.bookImage)
     }  else {
       tempErrors.bookImage = '';
     }
+
+    const usersList: { bookName: string }[] = JSON.parse(localStorage.getItem('books') ?? '[]');
+  
+    const isExist = usersList.findIndex(user => user.bookName == book.bookName.trim()) > -1;
+    console.log("hiii")
+    setBookExits(isExist)
     setErrors(tempErrors)
     
-    return tempErrors.bookImage !== '';
+    return  isExist ||tempErrors.bookName !== '' || tempErrors.bookLink !== '' ||tempErrors.bookImage !== '';
+    
    }
 
 
@@ -151,10 +162,18 @@ const page = () => {
     } 
   }
 
-  const submitBook = (data:any) => {
+  const submitBook = async(data:any) => {
+    const ab= await handelUpload()
+    console.log(ab)
     console.log(data)
    console.log(book)
+   if(ab!==undefined){
     if(validate()==true) return;
+   }
+    else if (ab == undefined ) {
+    if(imgValidate()==true) return
+   }
+    
     // if(imgValidate()==true) return;
     var arr=JSON.parse(localStorage.getItem('books')|| '[]')
     arr.push(book)
