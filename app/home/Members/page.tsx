@@ -22,7 +22,7 @@ const page = () => {
   const[val,setVal]=useState<string>("")
   const[source,setSource]=useState<string | any>("")
   const[userReload,setUserReload] = useState<any>()
-
+  const[error,setError]=useState<string>("Click Delete to confirm delete") 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const data = JSON.parse(localStorage.getItem("data") || '{}')
   const name = localStorage.getItem("username")
@@ -37,13 +37,18 @@ const page = () => {
   
 
   const validate =(member:any) => {
-     if(member.book !== ''){
-      console.log(member)
-     setUserReload(member)
-     onOpen()
-     console.log("works condition")
-      return true
-    }
+  
+      console.log(member.book.length)
+      if(member.book.length>0){
+        console.log(member)
+       setUserReload(member)
+       setError("user has book in there account to confirm delete Click Delete ")
+       onOpen()
+       console.log("works condition")
+        return true
+      }
+    
+     
   }
 
 
@@ -72,11 +77,7 @@ const page = () => {
 
   const deleteMember = (member:any) => {
       if(validate(member) == true ) return;
-      validate(member)
-        const updated = data.filter((data: { email: any; }) => member.email!==data.email)
-        console.log(updated)
-       localStorage.setItem("data",JSON.stringify(updated))
-       setVal(updated)
+        onOpen()
   }
   
   const confirmDelete = (userReload:any) => {
@@ -155,7 +156,7 @@ const page = () => {
                   <ModalHeader>Books!!!!</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
-                     click Delete to Confirm
+                     {error}
                   </ModalBody>
                      
                   <ModalFooter>
