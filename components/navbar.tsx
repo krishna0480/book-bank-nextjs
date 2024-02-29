@@ -24,8 +24,6 @@ import { HiMiniUserGroup } from "react-icons/hi2";
 
 const Navbar = () => {
 
-
-
   const pathName = usePathname()
   console.log(pathName)
   const router=useRouter()
@@ -68,7 +66,7 @@ const Navbar = () => {
   {
     id:4,
     name:"Buy",
-    link:"/home/Rent",
+    link:"/home/Buy",
     member:["Super Admin","Admin","Student"],
     icon:<FaInfoCircle className="icons" />
   }];

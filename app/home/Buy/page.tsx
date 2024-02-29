@@ -61,7 +61,7 @@ const entries =bookData.slice (start, end)
     // if(validate(data) == true) return;
     console.log(data)
     sessionStorage.setItem("book",data.bookName)
-     router.push("/home/Rent/Payment")
+     router.push("/home/Buy/Payment")
   }
   
   
@@ -99,20 +99,23 @@ const entries =bookData.slice (start, end)
                 <Tbody key={index}>
                 <Tr>
                   <Td>
-                  <Image  h={"100px"} w={"100px"} src={data.bookImage}/>
+                  <Image 
+                  h={["50px","50px","100px","100px"]}
+                  w={["50px","50px","100px","100px"]}
+                   src={data.bookImage}/>
                 </Td>
                 <Td>
                   {data.bookName}
                 </Td>
                 <Td>
                   <Button colorScheme='green' >
-                    <Link href={data.bookLink}>Buy</Link>
+                    <Link href={data.bookLink}>view</Link>
                   </Button>
                 </Td>
                 <Td>
                   <Button colorScheme='blue' onClick={() =>{Rent(data)}}>
                    {/* <Link href='/home/Rent/Payment' >Rent</Link>  */}
-                   Rent
+                   buy
                   </Button>
                 </Td>
                 </Tr>
@@ -122,7 +125,7 @@ const entries =bookData.slice (start, end)
           }
         </Table>
         <Flex p={"20px"} alignItems={"center"} justifyContent={"center"} >
-     <Pagination link={"/home/Rent/?page="} hasNextPage= {end < bookData.length} hasPrevPage= {start > 0} />
+     <Pagination link={"/home/Buy/?page="} hasNextPage= {end < bookData.length} hasPrevPage= {start > 0} />
      </Flex>
       </TableContainer>
     </Box>

@@ -122,7 +122,8 @@ const entries =bookData.slice (start, end)
            <Td >
         <Image
          src={entries.bookImage}
-         h={"100px"} w={"100px"}
+         h={["50px","50px","100px","100px"]}
+          w={["50px","50px","100px","100px"]}
          />
          </Td>
 

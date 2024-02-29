@@ -68,7 +68,7 @@ const page = () => {
             sale[k].quantity=sale[k].quantity+1
             console.log(sale[k])
             localStorage.setItem("sale",JSON.stringify(sale))
-            router.push("/home/Rent")
+            router.push("/home/Buy")
             return true
 
           }
@@ -126,7 +126,7 @@ const page = () => {
               </Box> 
             ),
           })
-          router.push("/home/Rent")
+          router.push("/home/Buy")
   }
   
   return (

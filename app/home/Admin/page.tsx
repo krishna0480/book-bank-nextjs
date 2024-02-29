@@ -290,7 +290,10 @@ const handelUpload = async(event:React.MouseEvent<HTMLButtonElement>) => {
                 <Tbody key={index}>
                 <Tr>
                   <Td>
-                    <Image h={"100px"} w={"100px"} src={bookData.bookImage}/>
+                    <Image 
+                    h={["50px","50px","100px","100px"]}
+                   w={["50px","50px","100px","100px"]} 
+                   src={bookData.bookImage}/>
                   </Td>
                   <Td>
                   {bookData.bookName}
