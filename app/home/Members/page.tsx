@@ -167,8 +167,6 @@ const page = () => {
                 </ModalContent>
               </Modal>
               </div>
-          
-   
      </Box>
     </Flex>
   </>

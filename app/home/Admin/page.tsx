@@ -67,7 +67,7 @@ const page = ({searchParams} : {searchParams : {[key:string]:string | string[] |
       let book=books[0].book
    });
    
-useEffect(() => {
+  useEffect(() => {
   for(let i=0;i<=data.length-1;i++) { 
     console.log("hii")
     if(data[i].img){
@@ -76,8 +76,8 @@ useEffect(() => {
         setInfo(repo)
     }
     }
-}
-}, []);
+    }
+    }, []);
 
 
 const handelUpload = async(event:React.MouseEvent<HTMLButtonElement>) => {

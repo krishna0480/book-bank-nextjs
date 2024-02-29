@@ -62,15 +62,6 @@ const entries =bookData.slice (start, end)
     console.log(data)
     sessionStorage.setItem("book",data.bookName)
      router.push("/home/Rent/Payment")
-//     for(let i=0;i<=userData.length-1;i++) { 
-//       if(name==userData[i].email) {
-//         userData[i].book.push(data)
-//        localStorage.setItem("data",JSON.stringify(userData))
-   
-      
-// }      
-//        console.log(userData)
-//     }
   }
   
   

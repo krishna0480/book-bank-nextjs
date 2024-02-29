@@ -32,7 +32,6 @@ const entries =bookData.slice (start, end)
 
   const rentedUsers = (book:any) => {
     for(let i=0;i<=data.length-1;i++){
-      // console.log(data[i].book);
           const a = data[i].book;
 
           for(let j=0;j<= a.length-1;j++){
@@ -53,12 +52,8 @@ const entries =bookData.slice (start, end)
       console.log(bookData)
       const deleted = bookData.filter((bookData:any) => bookData.bookName !== book.bookName)
       console.log(deleted)
-      // const userDelete= data.book.filter((data:any) => data.bookName !== book.bookName)
-      // console.log(userDelete)
       localStorage.setItem("books",JSON.stringify(deleted))
       setUser(bookData)
-      // console.log("this is",user)
-      // confirmDelete(user)
         } 
         
     const confirmDelete = (user:any) => {
@@ -160,24 +155,24 @@ const entries =bookData.slice (start, end)
 
           </Box>
       <div>
-                 <Modal isOpen={isOpen}  onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                  <ModalHeader>Books!!!!</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>
-                     The user has been rented books,<br/>
-                     click Delete to Confirm
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button variant={'ghost'} mr={3} onClick={onClose}>
-                      Close
-                    </Button>
-                    <Button  colorScheme='red' onClick={() => confirmDelete(user) } >Delete</Button>
-                  </ModalFooter>
-                </ModalContent>
-              </Modal>
-              </div>
+          <Modal isOpen={isOpen}  onClose={onClose}>
+         <ModalOverlay />
+         <ModalContent>
+           <ModalHeader>Books!!!!</ModalHeader>
+           <ModalCloseButton />
+           <ModalBody>
+              The user has been rented books,<br/>
+              click Delete to Confirm
+           </ModalBody>
+           <ModalFooter>
+             <Button variant={'ghost'} mr={3} onClick={onClose}>
+               Close
+             </Button>
+             <Button  colorScheme='red' onClick={() => confirmDelete(user) } >Delete</Button>
+           </ModalFooter>
+         </ModalContent>
+       </Modal>
+       </div>
   
        </Box>
        </Flex>
