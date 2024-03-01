@@ -27,39 +27,32 @@ const page = () => {
   const data = JSON.parse(localStorage.getItem("data") || '{}')
   const name = localStorage.getItem("username")
   
- 
-
-
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("data") || '{}')
     console.log(data.img)
   });
-  
 
   const validate =(member:any) => {
-  
-      console.log(member.book.length)
-      if(member.book.length>0){
-        console.log(member)
-       setUserReload(member)
-       setError("user has book in there account to confirm delete Click Delete ")
-       onOpen()
-       console.log("works condition")
-        return true
-      }
-    
-     
+    console.log(member.book.length)
+    if(member.book.length>0){
+      console.log(member)
+      setUserReload(member)
+      setError("user has book in there account to delete Click Delete ")
+      onOpen()
+      console.log("works condition")
+      return true
+    } else{
+      setUserReload(member)
+    }
   }
 
-
-
   const adminAccess = (member:any) => {
-     for(let i=0;i<=data.length-1;i++){
-      if(member.email==data[i].email){
-        data[i].role="Admin"
-        console.log(data)
-        setVal(data)
-        localStorage.setItem("data",JSON.stringify(data))
+    for(let i=0;i<=data.length-1;i++){
+     if(member.email==data[i].email){
+      data[i].role="Admin"
+      console.log(data)
+      setVal(data)
+      localStorage.setItem("data",JSON.stringify(data))
       }
      }
   }
@@ -67,17 +60,17 @@ const page = () => {
   const studentAccess = (member:any) => {
     for(let i=0;i<=data.length-1;i++){
      if(member.email==data[i].email){
-       data[i].role="Student"
-       console.log(data)
-       setVal(data)
-       localStorage.setItem("data",JSON.stringify(data))
+      data[i].role="Student"
+      console.log(data)
+      setVal(data)
+      localStorage.setItem("data",JSON.stringify(data))
      }
     }
  }
 
   const deleteMember = (member:any) => {
-      if(validate(member) == true ) return;
-        onOpen()
+   if(validate(member) == true ) return;
+   onOpen()
   }
   
   const confirmDelete = (userReload:any) => {
@@ -90,75 +83,64 @@ const page = () => {
   }
 
   return (
-    <>
-   <Flex overflowY={"scroll"}>
-    <Navbar />
-     <Box w={"100vw"} h={"100vh"} bg="#dde5b6">
-     <Text fontSize={"xl"}>Members</Text>
-     <Box  py={"30px"} bg={"#dde5b6"} px={["20px","20px","40px","80px"]}>
-     <TableContainer w={["75%","75%","90%","100%"]} p={"10px"} borderRadius={"25px"} bg={"#fff"}  >
-     <Table>
-       <Thead>
-         <Tr>
-           <Th>S.No</Th>
-           <Th>Name</Th>
-           <Th>Role</Th>
-           <Th>No.of.Books</Th>
-           <Th>Options</Th>
-         </Tr>
-       </Thead>
-     {
-        data.map((member:{email:String;role:String;book:any[];img:string},index:number) => {
-          
-          var role = member.role
-          console.log(role)
-          return(
-                 
-                <Tbody key={index}>
+ <>
+    <Flex overflowY={"scroll"}>
+        <Navbar />
+        <Box w={"100vw"} h={"100vh"} bg="#dde5b6">
+          <Text fontSize={"2xl"} p={"20px"}>Members</Text>
+          <Box  py={"30px"} bg={"#dde5b6"} px={["20px","20px","40px","80px"]}>
+            <TableContainer w={["75%","75%","90%","100%"]} p={"10px"} borderRadius={"25px"} bg={"#fff"}  >
+              <Table>
+                <Thead>
                   <Tr>
-                    <Td>
-                      {index+1}
-                    </Td>
-                    <Td>
-                    {member.email} {`  (${role})`}
-                    </Td>
-                 
-                    <Td>{
-                      role=="Admin"?<Button colorScheme='green'
-                       onClick={() => studentAccess(member)}>Student</Button>
-                      :role=="Super Admin"?"Super Admin":<Button colorScheme='blue' 
-                      onClick={() => adminAccess(member)} mr={"10px"}>Admin</Button>
-                      }
-                      
-                    </Td>
-                    <Td color={member.book.length>0?"red":"green"}>
-                      {member.book.length}
-                    </Td>
-                    <Td>{
-                      role=="Super Admin"?"Super Admin ":<Button colorScheme='red'
-                      onClick={() => deleteMember(member)} ><MdDelete  fontSize={"xl"}/>
-                      </Button>
-                      }
-                    </Td>
-             
+                    <Th>S.No</Th>
+                    <Th>Name</Th>
+                    <Th>Role</Th>
+                    <Th>No.of.Books</Th>
+                    <Th>Options</Th>
                   </Tr>
-              </Tbody>
-                   )
+                </Thead>
+                {
+                  data.map((member:{email:String;role:String;book:any[];img:string},index:number) => {
+                  var role = member.role
+                  console.log(role)
+                  return(
+                    <Tbody key={index}>
+                      <Tr>
+                        <Td>{index+1}</Td>
+                        <Td>{member.email} {`  (${role})`}</Td>
+                        <Td>{
+                              role=="Admin"?<Button colorScheme='green'
+                              onClick={() => studentAccess(member)}>Student</Button>
+                              :role=="Super Admin"?"Super Admin":<Button colorScheme='blue' 
+                              onClick={() => adminAccess(member)} mr={"10px"}>Admin</Button>
+                              }  
+                          </Td>
+                          <Td color={member.book.length>0?"red":"green"}>{member.book.length}</Td>
+                          <Td>{
+                              role=="Super Admin"?"Super Admin ":<Button colorScheme='red'
+                              onClick={() => deleteMember(member)} ><MdDelete  fontSize={"xl"}/>
+                              </Button>
+                              }
+                          </Td>
+                        </Tr>
+                    </Tbody>
+                  )
                   })
                 }
               </Table>
             </TableContainer>
-            </Box>
-            <div>
+          </Box>
+          <div>
               <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
                   <ModalHeader>Books!!!!</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
-                     {error}
+                      {error}
                   </ModalBody>
-                     
+                      
                   <ModalFooter>
                     <Button variant={'ghost'} mr={3} onClick={onClose}>
                       Close
@@ -167,11 +149,11 @@ const page = () => {
                   </ModalFooter>
                 </ModalContent>
               </Modal>
-              </div>
-     </Box>
+          </div>
+       </Box>
     </Flex>
-  </>
-  )
+ </>
+)
 }
 
 export default page

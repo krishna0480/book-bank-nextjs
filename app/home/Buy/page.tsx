@@ -12,22 +12,21 @@ import { redirect } from 'next/dist/server/api-utils';
 const page = ({searchParams} : {searchParams : {[key:string]:string | string[] | undefined}}) => {
 
   const bookData = JSON.parse(localStorage.getItem("books") || "{}")
-
   const userData = JSON.parse(localStorage.getItem("data") || "{}")
   const toast = useToast()
   const router =useRouter()
   const name = localStorage.getItem("username")
-    console.log(name);
-    console.log(userData)
+  console.log(name);
+  console.log(userData)
   console.log(bookData);
 
+  // pagination
+
   const page = searchParams['page'] ?? '1'
-const per_Page = searchParams['per_Page'] ?? '3' 
-
-const start = (Number(page) - 1) * Number(per_Page) 
-const end = start + Number(per_Page)
-
-const entries =bookData.slice (start, end)
+  const per_Page = searchParams['per_Page'] ?? '3' 
+  const start = (Number(page) - 1) * Number(per_Page) 
+  const end = start + Number(per_Page)
+  const entries =bookData.slice (start, end)
 
   const validate = (data:any) =>{
     for(let i=0;i<=userData.length-1;i++) { 
@@ -54,84 +53,82 @@ const entries =bookData.slice (start, end)
           }
         }
       }
+    }
   }
-}
 
   const Rent = (data:any) => {
     // if(validate(data) == true) return;
     console.log(data)
     sessionStorage.setItem("book",data.bookName)
-     router.push("/home/Buy/Payment")
+    router.push("/home/Buy/Payment")
   }
   
   
   return (
-    <>
-   <Flex overflowY={"scroll"}>
-    <Navbar />
-    <Box w={"100vw"} h={"100vh"} bg="#dde5b6">
-      <Text fontSize={"2xl"} p={"20px"}> Rent</Text>
-      <TableContainer bg={"#fff"} m={"20px"} w={["75%","75%","80%","100%"]} borderRadius={"25px"} px={"20px"}>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>
-                Book Image
-              </Th>
-              <Th>
-                Name
-              </Th>
-              <Th>
-                Buy
-              </Th>
-              <Th>
-                Rent
-              </Th>
-            </Tr>
-          </Thead>
-          {entries.length!=0?
-            entries.map((data: { bookImage: string 
-              ; bookName: string | number | boolean | 
-                React.ReactElement<any, string | React.JSXElementConstructor<any>> |
-                 Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode |
-                  null | undefined;bookLink:string },index:number) => {
+  <>
+    <Flex overflowY={"scroll"} overflowX={"hidden"}>
+      <Navbar />
+      <Box w={"100vw"} h={"100vh"} bg="#dde5b6" px={["20px","20px","40px","80px"]}>
+        <Text fontSize={"2xl"} p={"20px"}> Books List</Text>
+        <TableContainer bg={"#fff"} m={"20px"} w={["75%","75%","80%","100%"]} borderRadius={"25px"} px={"20px"}>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>
+                  Book Image
+                </Th>
+                <Th>
+                  Name
+                </Th>
+                <Th>
+                  View
+                </Th>
+                <Th>
+                  Buy
+                </Th>
+              </Tr>
+            </Thead>
+            {entries.length!=0?
+              entries.map((data: { bookImage: string; 
+              bookName: string | number | boolean | 
+              React.ReactElement<any, string | React.JSXElementConstructor<any>> |
+              Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode |
+              null | undefined;bookLink:string },index:number) => {
               return(
-                <Tbody key={index}>
-                <Tr>
+              <Tbody key={index}>
+                  <Tr>
+                    <Td>
+                      <Image 
+                      h={["50px","50px","100px","100px"]}
+                      w={["50px","50px","100px","100px"]}
+                      src={data.bookImage}/>
+                    </Td>
+                    <Td>
+                    {data.bookName}
+                    </Td>
+                    <Td>
+                      <Button colorScheme='green' >
+                      <Link href={data.bookLink}>view</Link>
+                      </Button>
+                    </Td>
                   <Td>
-                  <Image 
-                  h={["50px","50px","100px","100px"]}
-                  w={["50px","50px","100px","100px"]}
-                   src={data.bookImage}/>
-                </Td>
-                <Td>
-                  {data.bookName}
-                </Td>
-                <Td>
-                  <Button colorScheme='green' >
-                    <Link href={data.bookLink}>view</Link>
-                  </Button>
-                </Td>
-                <Td>
-                  <Button colorScheme='blue' onClick={() =>{Rent(data)}}>
-                   {/* <Link href='/home/Rent/Payment' >Rent</Link>  */}
-                   buy
-                  </Button>
-                </Td>
-                </Tr>
-              </Tbody>
+                      <Button colorScheme='blue' onClick={() =>{Rent(data)}}>
+                      {/* <Link href='/home/Rent/Payment' >Rent</Link>  */}
+                      buy
+                      </Button>
+                    </Td>
+                  </Tr>
+                </Tbody>
               )
-            }):"no books"
-          }
-        </Table>
-        <Flex p={"20px"} alignItems={"center"} justifyContent={"center"} >
-     <Pagination link={"/home/Buy/?page="} hasNextPage= {end < bookData.length} hasPrevPage= {start > 0} />
-     </Flex>
-      </TableContainer>
-    </Box>
+              }):"no books"
+            }
+          </Table>
+          <Flex p={"20px"} alignItems={"center"} justifyContent={"center"} >
+            <Pagination link={"/home/Buy/?page="} hasNextPage= {end < bookData.length} hasPrevPage= {start > 0} />
+          </Flex>
+        </TableContainer>
+      </Box>
     </Flex>
-  </>
-  )
-}
+  </> )}
 
 export default page

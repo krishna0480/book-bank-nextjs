@@ -33,10 +33,11 @@ const Navbar = () => {
 
 
   const logOut = () => {
-      console.log("logout");
-      sessionStorage.removeItem("mail");
-      sessionStorage.removeItem("role")
-      router.push('/login')
+    console.log("logout");
+    sessionStorage.removeItem("mail");
+    sessionStorage.removeItem("role");
+    localStorage.removeItem("username")
+    router.push('/login')
   }
 
   useEffect(() => {

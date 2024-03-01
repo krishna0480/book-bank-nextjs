@@ -53,7 +53,8 @@ export default function RouteMiddleware({children}:{children:React.ReactNode}){
     if(isClient  && (isSuperAdmin == false && isAdmin==false  && isStudent == false) && 
     (pathname == '/home/Admin' ||  pathname == '/home/Books'
      || pathname == '/home/Books/Addbooks' || pathname == '/home/Members' ||
-      pathname == '/home/Buy' || pathname == '/home/Buy/Payment')) {
+      pathname == '/home/Buy' || pathname == '/home/Buy/Payment')
+      ) {
       router.replace('/login')
     }
   }, [ router,isClient,isSuperAdmin,isAdmin,isStudent])
@@ -77,7 +78,7 @@ export default function RouteMiddleware({children}:{children:React.ReactNode}){
   if(isClient  && (isSuperAdmin == false && isAdmin == false && isStudent == false)  &&  
   (pathname == '/home/Admin' ||  pathname == '/home/Books' 
   || pathname == '/home/Books/Addbooks'  || pathname == '/home/Members' ||
-   pathname == '/home/Buy' || pathname == '/home/Buy/Payment') ) return null;
+  pathname == '/home/Buy' || pathname == '/home/Buy/Payment') ) return null;
 
   return isClient ? children : null;
 }

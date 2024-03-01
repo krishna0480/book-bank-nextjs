@@ -13,16 +13,9 @@ const page = () => {
   // if(session){
   //    redirect('/home/Admin')
   // } 
-  
   }, []);
- 
-
-
-
-
   return (
-    <>
-    
+ <>
   </>
   )
 }

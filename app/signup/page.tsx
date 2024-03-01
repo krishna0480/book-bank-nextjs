@@ -14,12 +14,12 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
-  Link,
-  Select
+  Link
 } from '@chakra-ui/react'
 
 
 import { redirect, useRouter } from 'next/navigation';
+import NextLink from 'next/link'
 
 
 const SignupPage = () => {
@@ -69,7 +69,9 @@ const SignupPage = () => {
     } else {
       tempErrors.confirmPassword = ''
     }
+
     console.log(formData)
+
     if(formData.role==''){
       tempErrors.role = `Please Select the Role here!`;
     } else {
@@ -89,8 +91,19 @@ const SignupPage = () => {
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     if(validateForm() == true) return ;
-    const usersList: { email: string, password: string,role:string,book:any[] }[] = JSON.parse(localStorage.getItem('data') ?? '[]');
-    usersList.push({ email: formData.email, password: formData.password, role: formData.role, book:formData.book });
+
+    const usersList: { 
+      email: string, 
+      password: string,
+      role:string,
+      book:any[] }[] = JSON.parse(localStorage.getItem('data') ?? '[]');
+
+    usersList.push({ 
+      email: formData.email,
+      password: formData.password,
+      role: formData.role, 
+      book:formData.book });
+
     localStorage.setItem('data', JSON.stringify(usersList));
     router.push('/login');
   }
@@ -141,8 +154,6 @@ const SignupPage = () => {
             <FormErrorMessage>{errors.confirmPassword}</FormErrorMessage>
           </FormControl>
 
-        
-
           {
             isEmailAlreadyExist &&
             <Alert mt = '20px' status='error' borderRadius={'10px'}>
@@ -155,7 +166,7 @@ const SignupPage = () => {
             Submit
           </Button>
 
-          <h3>Already signed in click </h3><Link color={"#0000ff"} href={'/login'} >here</Link>
+          <h3>Already have a account click </h3><Link as={NextLink} color={"#0000ff"} href={'/login'} >here</Link>
         </Flex>
        </form>
     </Flex>
