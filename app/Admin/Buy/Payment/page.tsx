@@ -125,7 +125,7 @@ const page = () => {
          </Box> 
         ),
       })
-     router.push("/home/Buy")
+     router.push("/home/Books")
    }
   
   return (

@@ -30,6 +30,7 @@ const page = () => {
       bookName:"",
       bookLink:"",
       bookImage:"",
+      user:val,
     })
   
   const [errors, setErrors] = useState<{bookName:string;bookLink:string;bookImage:any | string}>(

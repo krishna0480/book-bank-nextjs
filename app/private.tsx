@@ -9,26 +9,27 @@ export default function RouteMiddleware({children}:{children:React.ReactNode}){
   const router =  useRouter();
   const pathname =  usePathname();
   const allowedPathsForSuperAdmin = [
-    '/home/Admin',
-    '/home/Books',
-    '/home/Books/Addbooks',
-    '/home/Members',
-    '/home/Buy',
-    '/home/Buy/Payment',
+    '/Admin',
+    '/Books',
+    '/Books/Addbooks',
+    '/Members',
+    '/Buy',
+    '/Buy/Payment',
   ];
   
   const allowedPathsForAdmin = [
-    '/home/Books',
-    '/home/Books/Addbooks',
-    '/home/Admin',
-    '/home/Buy',
-    '/home/Buy/Payment',
+    '/Books',
+    '/Books/Addbooks',
+    '/Admin',
+    '/Buy',
+    '/Buy/Payment',
   ];
 
   const allowedPathsForStudent = [
-    '/home/Admin',
-    '/home/Buy',
-    '/home/Buy/Payment',
+    '/Admin',
+    '/Buy',
+    '/Books',
+    '/Buy/Payment',
   ]
 
   useEffect(() => {   
@@ -40,20 +41,20 @@ export default function RouteMiddleware({children}:{children:React.ReactNode}){
         isAdmin && !allowedPathsForAdmin.includes(pathname) ||
         isStudent && !allowedPathsForStudent.includes(pathname))
     ) {
-      router.replace('/home/Admin');
+      router.replace('/Admin');
     }
 
-    if (isClient && !isSuperAdmin && pathname =='/home/Members') {
-      router.replace('/home/Admin');
+    if (isClient && !isSuperAdmin && pathname =='/Members') {
+      router.replace('/Admin');
     }
-    if (isClient && !isSuperAdmin && !isAdmin && pathname =='/home/Books') {
-      router.replace('/home/Admin');
-    }
+    // if (isClient && !isSuperAdmin && !isAdmin && pathname =='/home/Books') {
+    //   router.replace('/home/Admin');
+    // }
     
     if(isClient  && (isSuperAdmin == false && isAdmin==false  && isStudent == false) && 
-    (pathname == '/home/Admin' ||  pathname == '/home/Books'
-     || pathname == '/home/Books/Addbooks' || pathname == '/home/Members' ||
-      pathname == '/home/Buy' || pathname == '/home/Buy/Payment')
+    (pathname == '/Admin' ||  pathname == '/Books'
+     || pathname == '/Books/Addbooks' || pathname == '/Members' ||
+      pathname == '/Buy' || pathname == '/Buy/Payment')
       ) {
       router.replace('/login')
     }
@@ -71,14 +72,14 @@ export default function RouteMiddleware({children}:{children:React.ReactNode}){
       isStudent && !allowedPathsForStudent.includes(pathname) )
   ) return null
 
-  if (isClient && !isSuperAdmin && pathname === '/home/Members') return null
+  if (isClient && !isSuperAdmin && pathname === '/Members') return null
 
-  if (isClient && !isSuperAdmin && !isAdmin && pathname === '/home/Books') return null
+  // if (isClient && !isSuperAdmin && !isAdmin && pathname === '/home/Books') return null
 
   if(isClient  && (isSuperAdmin == false && isAdmin == false && isStudent == false)  &&  
-  (pathname == '/home/Admin' ||  pathname == '/home/Books' 
-  || pathname == '/home/Books/Addbooks'  || pathname == '/home/Members' ||
-  pathname == '/home/Buy' || pathname == '/home/Buy/Payment') ) return null;
+  (pathname == '/Admin' ||  pathname == '/Books' 
+  || pathname == '/Books/Addbooks'  || pathname == '/Members' ||
+  pathname == '/Buy' || pathname == '/Buy/Payment') ) return null;
 
   return isClient ? children : null;
 }

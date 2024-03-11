@@ -46,31 +46,32 @@ const Navbar = () => {
       {
         id:1,
         name:"Profile",
-        link:"/home/Admin",
+        link:"/Admin",
         member:["Super Admin","Admin","Student"],
         icon:<FaUser className="icons" />
     },
     {
       id:2,
       name:"Books",
-      link:"/home/Books",
-      member:["Super Admin","Admin"],
+      link:"/Books",
+      member:["Super Admin","Admin","Student"],
       icon: <IoIosAddCircle  className="icons"/>
   },
   {
     id:3,
     name:"Members",
-    link:"/home/Members",
+    link:"/Members",
     member:["Super Admin"],
     icon:<HiMiniUserGroup  className="icons"/>
   },
-  {
-    id:4,
-    name:"Buy",
-    link:"/home/Buy",
-    member:["Super Admin","Admin","Student"],
-    icon:<FaInfoCircle className="icons" />
-  }];
+  // {
+  //   id:4,
+  //   name:"Buy",
+  //   link:"/home/Buy",
+  //   member:["Super Admin","Admin","Student"],
+  //   icon:<FaInfoCircle className="icons" />
+  // }
+];
 
     if (role) {
       const filteredNavLinks = navLink.filter((link: any) =>

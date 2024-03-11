@@ -57,7 +57,7 @@ const page = () => {
           sessionStorage.setItem("mail","true");
           sessionStorage.setItem("role",val[i].role)
           localStorage.setItem("username",val[i].email)
-          router.push("/home/Admin")
+          router.push("/Admin")
           break;
          } else if((val[i].email!==formValues.email && val[i].password!==formValues.password)){
           error.email = "User details invalid"

@@ -267,7 +267,7 @@ return (
            
            <Text m={"20px"} fontSize={"2xl"}>Books</Text>
 
-            <Box px={["20px","20px","80px","80px"]} py={"30px"} bg={"#dde5b6"}>   
+            {/* <Box px={["20px","20px","80px","80px"]} py={"30px"} bg={"#dde5b6"}>   
                 {entries.length>0?     
                     <TableContainer  bg={"#fff"}  w={["75%","75%","80%","100%"]} borderRadius={"25px"} p={"10px"}>
                       <Table>
@@ -319,7 +319,7 @@ return (
                         </Text>
                       </Box>
                   }
-             </Box>  
+             </Box>   */}
           </Box>
         </Flex>
     </Flex>
